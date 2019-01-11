@@ -1,0 +1,4 @@
+211c211
+< #if !defined __alloca && !defined __GNU_LIBRARY__
+---
+> #if !defined __alloca && defined __GNU_LIBRARY__

@@ -1,0 +1,16 @@
+CC      =       mips64-elf-gcc
+LD      =       mips64-elf-ld
+MAKEROM =       spicy
+
+LIB = $(ROOT)/usr/lib
+LPR = $(LIB)/PR
+INC = $(ROOT)/usr/include
+
+GCCFLAG =       -c -I$(INC) -D_MIPS_SZLONG=34 -D_MIPS_SZINT=32 -D_LANGUAGE_C -D_ULTRA64 -D__EXTENSIONS__ -mabi=32 -march=vr4300 -mtune=vr4300
+CFLAGS  =       $(LCDEFS) $(LCINCS) $(LCOPTS) $(GCCFLAG) $(OPTIMIZER)
+
+COMMONRULES     = $(ROOT)/usr/include/make/commonrules
+
+CELFRULES       = $(ROOT)/usr/include/make/celfrules
+
+include $(ROOT)/usr/include/make/celfdefs
