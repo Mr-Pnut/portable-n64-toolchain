@@ -3,6 +3,10 @@ A Dockerized N64 toolchain based on modern-n64sdk
 
 NOTE!! I have not got Spicy/Makemask to work yet.  Unfortunately, you still have to run mild and makemask on your rom after the toolchain builds it.  The goal is to completely build your rom with this toolchain, but it just isn't there yet.  This will build all of the objects that your spec uses to build the rom.
 
+## Version History
+* 1.0.1 (current): Spicy/Makemask added.  Toolchain is precompiled now for faster builds.
+* 1.0.0: Initial release
+
 ## Huh?
 This is a preconfigured, ready to go N64 build environment using the "modern" N64 toolchain found https://github.com/trhodeos/modern-n64sdk (big ups trhodeos).
 
