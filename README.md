@@ -1,7 +1,10 @@
 # portable-n64-toolchain
 A Dockerized N64 toolchain based on modern-n64sdk
 
-NOTE!! I have not got Spicy/Makemask to work yet.  Unfortunately, you still have to run mild and makemask on your rom after the toolchain builds it.  The goal is to completely build your rom with this toolchain, but it just isn't there yet.  This will build all of the objects that your spec uses to build the rom.
+UPDATE!!
+Spicy / Makemask seem to work fine so far.  This toolchain is guaranteed to at least take the nu0 program from source to production rom.
+
+The trick is to pad your rom.  This is because makemask will read bytes 0x1000 - 0x0FF000 of the rom file, which may not exist if the rom is small. You pad the rom with ```spicy -s {mbits}``` I generally just pick the smallest game pak size ```spicy -s 32```.
 
 ## Version History
 * 1.0.1 (current): Spicy/Makemask added.  Toolchain is precompiled now for faster builds.
