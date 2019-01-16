@@ -13,7 +13,7 @@ The trick is to pad your rom.  This is because makemask will read bytes 0x1000 -
 ## Huh?
 This is a preconfigured, ready to go N64 build environment using the "modern" N64 toolchain found https://github.com/trhodeos/modern-n64sdk (big ups trhodeos).
 
-The goal is minimal setup of the SDK.  This could potentially also make your builds CI ready -- having one central place to build your N64 project team, or getting people set up with an SDK asap, provided they have Docker.
+The goal is minimal setup of the SDK.  This could potentially also make your builds CI ready -- having one central place to build your N64 project for you team, or getting people set up with an SDK asap, provided they have Docker.
 
 ## Building the toolchain
 Of course you have to have Docker installed as a prerequisite.  So install it if you don't have it.
@@ -29,8 +29,15 @@ Of course you have to have Docker installed as a prerequisite.  So install it if
 
 At this point the toolchain will build.  It takes a while, probably 15-20 mins at least.
 
-After that's done you have a Docker image of the toolchain.  You can go to where the soure for your project is at and run the following to build it.
+After that's done you have a Docker image of the toolchain.  You can go to where the source for your project is at and run the following to build it.
 
 ```
 > docker run -w /mnt/src -v /where/my/source/is/locally:/mnt/src -it n64 make
 ```
+
+## Windows Notes
+
+If you install Docker For Windows you will be using the Hyper-V based implementation of Docker for windows.  This matters if you plan on running a VM still, in a non Hyper-V hypervisor.  I'd recommend using the older "Docker Toolbox" version of Docker in this situation if you aren't using Docker for anything else.  Docker Toolbox uses VirtualBox instead of Hyper-V so you can continue to use other VMs.  Docker Toolbox is the legacy installation of Docker for Windows.  It's not recommended by Docker anymore for use, but it works for this use case.
+
+## Other Notes
+* Depending on your SDK your paths might not line up correctly.  For example, I needed to rename a few libraries to lowercase because they copied over uppercase.  In this situation, just rename the files in the n64sdk subdirectory of this project that you copied over.  After that just do a ```docker build . -t n64``` (in the directory of the Dockerfile) to do a new build.
