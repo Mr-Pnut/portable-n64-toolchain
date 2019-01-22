@@ -1,19 +1,23 @@
 # portable-n64-toolchain
 A Dockerized N64 toolchain based on modern-n64sdk
 
-UPDATE!!
-Spicy / Makemask seem to work fine so far.  This toolchain is guaranteed to at least take the nu0 program from source to production rom.
-
-The trick is to pad your rom.  This is because makemask will read bytes 0x1000 - 0x0FF000 of the rom file, which may not exist if the rom is small. You pad the rom with ```spicy -s {mbits}``` I generally just pick the smallest game pak size ```spicy -s 32```.
-
 ## Version History
-* 1.0.1 (current): Spicy/Makemask added.  Toolchain is precompiled now for faster builds.
-* 1.0.0: Initial release
+* 1.0.2 (current): Rust support added.  Need to provide a target specification file.  See [N64-Rust-Sample](https://github.com/Mr-Pnut/N64-Rust-Sample) for this, and example Makefile.
+* 1.0.1: Spicy/Makemask added.  Toolchain is precompiled now for faster builds.
+* 1.0.0: Initial release.
 
 ## Huh?
 This is a preconfigured, ready to go N64 build environment using the "modern" N64 toolchain found https://github.com/trhodeos/modern-n64sdk (big ups trhodeos).
 
 The goal is minimal setup of the SDK.  This could potentially also make your builds CI ready -- having one central place to build your N64 project for you team, or getting people set up with an SDK asap, provided they have Docker.
+
+## Rust?
+The toolchain is set up to install nightly rust channel, xargo, and settings that will allow it to build a core crate for ```mips-unknown-elf``` target.  Currently, you need to have a target specifications file in your project. See [N64-Rust-Sample](https://github.com/Mr-Pnut/N64-Rust-Sample) for details.  If you don't plan on using rust, you can disable it with the ```NO_RUST``` build argument.
+
+## Updating the toolchain
+When your toolchain gets modified from pull or otherwise, use the ```--no-cache``` arg to guarantee a fresh build.
+
+```docker build . -t n64 --no-cache```
 
 ## Building the toolchain
 Of course you have to have Docker installed as a prerequisite.  So install it if you don't have it.
@@ -27,7 +31,7 @@ Of course you have to have Docker installed as a prerequisite.  So install it if
 > docker build . -t n64
 ```
 
-At this point the toolchain will build.  It takes a while, probably 15-20 mins at least.
+At this point the toolchain will build.  It will take 10 minutes at most, but you only have to build it once (unless you're updating the toolchain).
 
 After that's done you have a Docker image of the toolchain.  You can go to where the source for your project is at and run the following to build it.
 
@@ -41,3 +45,5 @@ If you install Docker For Windows you will be using the Hyper-V based implementa
 
 ## Other Notes
 * Depending on your SDK your paths might not line up correctly.  For example, I needed to rename a few libraries to lowercase because they copied over uppercase.  In this situation, just rename the files in the n64sdk subdirectory of this project that you copied over.  After that just do a ```docker build . -t n64``` (in the directory of the Dockerfile) to do a new build.
+
+* Spicy/Makemask issues: If you get an EOF error with makemask, pad your rom with ```spicy -s {mbits}```. I generally just pick the smallest game pak size ```spicy -s 32```.  You get the error because makemask will read bytes 0x1000 - 0x0FF000 of the rom file, which may or may not exist if the rom is small.

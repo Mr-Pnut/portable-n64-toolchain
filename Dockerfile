@@ -7,6 +7,7 @@ label maintainer="MrPnut"
 
 # arguments
 arg BUILD_TOOLCHAIN=false
+arg NO_RUST=false
 
 # copy sdk and patches over to build context
 copy n64sdk n64sdk
@@ -26,13 +27,15 @@ run /scripts/install_n64chain.sh ${BUILD_TOOLCHAIN}
 run chmod +x /scripts/install_spicy_makemask.sh
 run /scripts/install_spicy_makemask.sh
 
+# install rust
+run chmod +x /scripts/install_rust.sh
+run /scripts/install_rust.sh ${NO_RUST}
+
 # set up environment variables each invocation of docker run will reuse
 env ROOT=/n64sdk/ultra
-env PATH=/n64chain/tools/bin:$PATH
+env PATH=/n64chain/tools/bin:/cargo/bin:$PATH
 env GCCDIR=$ROOT/GCC
+env CARGO_HOME=/cargo
 
 # copy any overlays over for files we want to modify
 copy overlays /
-
-
-# tar cJf n64chain.tar.xz /n64chain
