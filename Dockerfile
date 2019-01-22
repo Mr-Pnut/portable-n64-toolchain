@@ -1,7 +1,7 @@
 from ubuntu:18.04
 
 # meta
-label version="1.0.1"
+label version="1.0.2"
 label description="Docker build for C/Rust N64 build environment"
 label maintainer="MrPnut"
 
@@ -14,6 +14,7 @@ copy n64sdk n64sdk
 copy patches patches
 copy scripts scripts
 copy n64chain n64chain
+copy cargo cargo
 
 # get dependencies we need for rest of script
 run apt-get update

@@ -16,6 +16,10 @@ if [ "$1" = "false" ]; then
     rustup component add rust-src
 
     cargo install xargo
+
+# prebuild the core library so we don't have to do it with every project build
+    cd /cargo/init/libcorebuilder
+    xargo build --target mips-unknown-elf
 else
     echo "Skipping installation of rust"
 fi

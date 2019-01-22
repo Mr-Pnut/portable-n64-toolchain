@@ -1,0 +1,16 @@
+{
+  "data-layout": "p:32:32-i8:8:32-i16:16:32-i64:64-n32",
+  "linker-flavor": "gcc",
+  "arch": "mips",
+  "llvm-target": "mips-unknown-elf",
+  "os": "none",
+  "target-endian": "big",
+  "target-pointer-width": "32",
+  "target-c-int-width": "32",
+  "cpu": "mips2",
+  "features": "+noabicalls,+mips2,-mips3,+mips32r2",
+  "disable-redzone": true,
+  "relocation-model": "static",
+  "position-independent-executables": false,
+  "function-sections": false
+}
