@@ -8,7 +8,7 @@
   "target-pointer-width": "32",
   "target-c-int-width": "32",
   "cpu": "mips2",
-  "features": "+noabicalls,+mips2,-mips3,+mips32r2",
+  "features": "+noabicalls,+mips3",
   "disable-redzone": true,
   "relocation-model": "static",
   "position-independent-executables": false,
